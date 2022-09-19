@@ -1,28 +1,10 @@
-package main
+package io
 
 import (
 	"io"
 	"log"
 	"net"
 )
-
-func main() {
-	l, err := net.Listen("tcp", ":8000")
-	if nil != err {
-		log.Println(err)
-	}
-	defer l.Close()
-
-	for {
-		conn, err := l.Accept()
-		if nil != err {
-			log.Println(err)
-			continue
-		}
-		defer conn.Close()
-		go ConnHandler(conn)
-	}
-}
 
 func ConnHandler(conn net.Conn) {
 	recvBuf := make([]byte, 4096)
